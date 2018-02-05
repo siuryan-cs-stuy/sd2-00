@@ -9,20 +9,29 @@ var isSquare = true;
 var size = 20;
 
 slate.addEventListener("click", function() {
-  ctx.beginPath();
+
+  var x, y;
+
+  if (isSquare) {
+    x = event.offsetX - size / 2;
+    y = event.offsetY - size / 2;
+  } else {
+    x = event.offsetX;
+    y = event.offsetY;
+  }
+
+  ctx.fillStyle = "black";
+  ctx.lineTo(event.offsetX, event.offsetY);
+  ctx.stroke();
   ctx.fillStyle = "lightsteelblue";
 
   if (isSquare) {
-    var x = event.offsetX - size / 2;
-    var y = event.offsetY - size / 2;
     ctx.fillRect(x, y, size, size);
   } else {
-    var x = event.offsetX;
-    var y = event.offsetY;
+    ctx.beginPath();
     ctx.arc(x, y, size, 0, 2 * Math.PI);
+    ctx.fill();
   }
-
-  ctx.fill();
 
 });
 
@@ -32,4 +41,5 @@ toggle.addEventListener("click", function() {
 
 clear.addEventListener("click", function() {
   ctx.clearRect(0, 0, 500, 500);
+  ctx.beginPath();
 });
